@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Generic - Phantom by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/assets/css/main.css"/>
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner" style="display: flex; flex-direction: row; justify-content: end;">
+
+							<!-- Logo -->
+							<div>
+								<a href="/" class="logo">
+									<span class="symbol"><img src="/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+							</div>
+
+							<!-- Logo -->
+							<div class="login">
+								<button name="login" id="login">login</button>
+								<button name="signin" id="signin">signin</button>
+							</div>
+
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+					<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="generic" th:href="@{/members}">사용자관리</a></li>
+							<li><a href="generic" th:href="@{/generic}">Tempus etiam</a></li>
+							<li><a href="generic" th:href="@{/generic}">Consequat dolor</a></li>
+							<li><a href="elements" th:href="@{/elements}">Elements</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>사용자 수정하기</h1>
+							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+							<form action="member.html" th:action method="post">
+								<input type="hidden" id="memSeq" name="memSeq" class="form-control" value="1" th:value="${member.memSeq}" readonly>
+								<div>
+									<label for="memId">ID</label>
+									<input type="text" id="memId" name="memId" class="form-control" value="1" th:value="${member.memId}">
+								</div>
+								<div>
+									<label for="memPass">비밀번호</label>
+									<input type="text" id="memPass" name="memPass" class="form-control" value="10000" th:value="${member.memPass}">
+								</div>
+								<div>
+									<label for="memName">사용자명</label>
+									<input type="text" id="memName" name="memName" class="form-control" value="사용자A" th:value="${member.memName}" >
+								</div>
+								<div>
+									<label for="memAuth">권한</label>
+									<input type="text" id="memAuth" name="memAuth" class="form-control" value="10000" th:value="${member.memAuth}">
+								</div>
+								<div>
+									<label for="useYn">사용여부</label>
+									<input type="text" id="useYn" name="useYn" class="form-control" value="10" th:value="${member.useYn}">
+								</div>
+
+								<hr class="my-4">
+
+								<div class="row" style="display: flex; flex-direction: row;justify-content: end;">
+									<div class="col">
+										<button class="w-100 btn btn-primary btn-lg" type="submit">저장</button>
+									</div>
+									<div class="col">
+										<button class="w-100 btn btn-secondary btn-lg" onclick="location.href='member.html'"
+												th:onclick="|location.href='@{/{memSeq}(memSeq=${member.memSeq})}'|"
+												type="button">취소</button>
+									</div>
+									<div class="col">
+										<button class="w-100 btn btn-danger btn-lg" onclick="location.href='member.html'"
+												th:onclick="|location.href='@{/{memSeq}/delete(memSeq=${member.memSeq})}'|"
+												type="button">삭제</button>
+									</div>
+								</div>
+
+							</form>
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

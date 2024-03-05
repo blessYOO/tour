@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: syyoo
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true # 쿼리 로그 show로 설정
+    properties:
+      hibernate:
+        format_sql: true # sql문 출력
+logging:
+  level:
+    root: info
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace # 바인딩된 파라미터 출력
+profiles:
+  active: local
+
+mybatis:
+  config-location: classpath:config/mybatis-config.xml
+  mapper-locations: classpath:mapper/**.xml

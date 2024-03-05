@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.syyoo.members.mapper.MemberMapper">
+
+    <select id="findAll" resultType="com.example.syyoo.members.vo.MemberVo">
+        SELECT
+            memSeq,
+            memId,
+            memPass,
+            memName,
+            memAuth,
+            useYn
+        FROM
+            member
+    </select>
+    <select id="findByMemSeq" parameterType="java.lang.Long" resultType="com.example.syyoo.members.vo.MemberVo">
+        SELECT
+            memSeq,
+            memId,
+            memPass,
+            memName,
+            memAuth,
+            useYn
+        FROM
+            member
+        WHERE
+            memSeq = #{memSeq}
+    </select>
+    <update id="update" parameterType="java.util.HashMap">
+        UPDATE
+            member
+        SET  memId = #{memId}
+            ,memName = #{memName}
+            ,memPass = #{memPass}
+            ,memAuth = #{memAuth}
+            ,useYn = #{useYn}
+        WHERE
+            memSeq = #{memSeq}
+    </update>
+    <delete id="delMemBySeq" parameterType="java.lang.Long">
+        DELETE FROM
+            member
+        WHERE memSeq = #{memSeq}
+    </delete>
+    <insert id="save" parameterType="com.example.syyoo.members.vo.MemberVo">
+        INSERT INTO
+            member
+        (
+            memId,
+            memPass,
+            memName,
+            memAuth,
+            useYn
+        )
+           VALUES
+        (
+            #{memId},
+            #{memPass},
+            #{memName},
+            #{memAuth},
+            #{useYn}
+        );
+    </insert>
+</mapper>

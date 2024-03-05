@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>지도 안내</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header -->
+	<header id="header">
+		<div class="inner">
+
+			<!-- Logo -->
+			<a href="../../index.html" class="logo">
+				<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+			</a>
+
+			<!-- Nav -->
+			<nav>
+				<ul>
+					<li><a href="#menu">Menu</a></li>
+				</ul>
+			</nav>
+
+		</div>
+	</header>
+
+	<!-- Menu -->
+	<nav id="menu">
+		<h2>Menu</h2>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="generic" th:href="@{/generic}">Ipsum veroeros</a></li>
+			<li><a href="generic" th:href="@{/generic}">Tempus etiam</a></li>
+			<li><a href="generic" th:href="@{/generic}">Consequat dolor</a></li>
+			<li><a href="elements" th:href="@{/elements}">Elements</a></li>
+			<li><a href="test" th:href="@{/test}">test</a></li>
+		</ul>
+	</nav>
+
+	<!-- Main -->
+	<div id="main">
+		<div class="inner">
+			<h1>지도검색</h1>
+			<!-- 지도를 표시할 div 입니다 -->
+			<div id="map" style="width:100%;height:350px;"></div>
+			<div class="address">
+				<span id="address">
+					<h3 style="margin-top: 30px;">📬 다른 주소 검색하기</h3>
+					<input type="text" id="sample5_address" placeholder="주소">
+					<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<section>
+				<h2>Get in touch</h2>
+				<form method="post" action="#">
+					<div class="fields">
+						<div class="field half">
+							<input type="text" name="name" id="name" placeholder="Name" />
+						</div>
+						<div class="field half">
+							<input type="email" name="email" id="email" placeholder="Email" />
+						</div>
+						<div class="field">
+							<textarea name="message" id="message" placeholder="Message"></textarea>
+						</div>
+					</div>
+					<ul class="actions">
+						<li><input type="submit" value="Send" class="primary" /></li>
+					</ul>
+				</form>
+			</section>
+			<section>
+				<h2>Follow</h2>
+				<ul class="icons">
+					<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+					<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+					<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+					<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+			</section>
+			<ul class="copyright">
+				<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f38db31c791a1a55d2394adc965c95a9&libraries=services"></script>
+
+<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
+
+    // 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+
+	//마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.537187, 127.005476),
+        map: map
+    });
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('서울특별시 양천구 목동 안양천로 939', function(result, status) {
+
+        // 정상적으로 검색이 완료됐으면
+         if (status === kakao.maps.services.Status.OK) {
+
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            });
+            infowindow.open(map, marker);
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        }
+    });
+
+	 function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+    }
+</script>
+</html>
